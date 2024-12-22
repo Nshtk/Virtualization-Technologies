@@ -1,0 +1,21 @@
+---
+    - hosts: localhost
+      vars:
+        vcenter_hostname: "192.168.13.70"
+        vcenter_user: "****"
+        vcenter_password: "passwprd73!"
+        esxi_hostname: "192.168.13.50"
+        esxi_username: "root"
+        esxi_password: "m-032023"
+      tasks: 
+        - name: Start Service on  esxi host in vcenter
+          community.vmware.vmware_host_service_manager:
+            hostname: "{{ vcenter_hostname }}"
+            username: "{{ vcenter_user }}"
+            password: "{{ vcenter_password }}"
+            esxi_hostname: "{{ esxi_hostname }}"
+            service_name: ntpd
+            state: present #present #absent
+            service_policy: off 
+            validate_certs: no
+          delegate_to: localhost

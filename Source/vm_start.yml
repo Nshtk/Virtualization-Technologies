@@ -1,0 +1,17 @@
+- name: start vm 
+  hosts: localhost
+  become: false
+  gather_facts: false
+  collections:
+    - community.vmware
+  pre_tasks:
+    - include_vars: vmware_vars.yml
+  tasks:
+    - name: power on
+      vmware_guest_powerstate:
+        hostname: "{{ hostname }}"
+  username: "{{ username }}"
+        password: "{{ password }}"
+        name: msk-srv01
+        validate_certs: "{{ validate_certs }}"
+        state: powered-on
